@@ -1,0 +1,49 @@
+html {
+    text-align: center;
+    background: #f8f8f8 url(../images/pinstripe.png);
+    color: #333;
+    font-family: '微软雅黑';
+}
+
+header {
+	text-align: left;
+	margin-top: 2%;
+	margin-left: 20%;
+}
+
+header a {
+	color: #232323;
+    text-decoration: none;
+}
+
+#banner {
+	text-align: left;
+	margin-top: 2%;
+	margin-left: 22%;
+	color: #de1e4c;
+}
+
+body {
+
+}
+
+article {
+	text-align: left;
+	margin-top: 2%;
+	margin-left: 20%;
+}
+
+article a {
+	color: #232323;
+	font-style: italic;
+}
+
+article ul {
+	width: 40%;
+	float: left;
+}
+
+article li {
+	list-style-type: square;
+	margin-top: 10px;
+}
