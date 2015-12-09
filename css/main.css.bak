@@ -1,14 +1,15 @@
-html {
+﻿html {
     text-align: center;
     background: #f8f8f8 url(../images/pinstripe.png);
     color: #333;
     font-family: '微软雅黑';
+	margin-left: 15%;
+	margin-right:20%;
 }
 
 header {
 	text-align: left;
 	margin-top: 2%;
-	margin-left: 20%;
 }
 
 header a {
@@ -16,21 +17,21 @@ header a {
     text-decoration: none;
 }
 
-#banner {
+header #banner {
 	text-align: left;
 	margin-top: 2%;
-	margin-left: 22%;
+	margin-left:2%;
 	color: #de1e4c;
 }
 
 body {
-
+	
 }
 
 article {
 	text-align: left;
-	margin-top: 2%;
-	margin-left: 20%;
+	margin-top: 4%;	
+	min-height:80%;
 }
 
 article a {
@@ -39,11 +40,34 @@ article a {
 }
 
 article ul {
-	width: 40%;
+	width: 50%;
 	float: left;
 }
 
 article li {
 	list-style-type: square;
 	margin-top: 10px;
+}
+
+.essay {
+	text-align: left;
+	margin-top: 4%;
+	min-width:600px;
+	max-width:800px;
+}
+
+footer {
+	margin-top:4%;
+	
+}
+
+footer #github {
+	width:80px;
+	height:80px;
+	margin-left:0; 
+}
+
+footer #github img {
+	width:100%;
+	height:100%;
 }
