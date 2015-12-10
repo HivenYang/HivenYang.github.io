@@ -22,7 +22,6 @@ header #banner {
 	margin-left:2%;
 	width: 20%;
 	color: #de1e4c;
-	float: left;
 }
 
 header #github {
@@ -43,7 +42,7 @@ body {
 
 article {
 	text-align: left;
-	margin-top: 4%;	
+	margin-top: 2%;	
 	min-height:80%;
 }
 
