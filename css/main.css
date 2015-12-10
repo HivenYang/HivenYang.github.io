@@ -18,14 +18,27 @@ header a {
 }
 
 header #banner {
-	text-align: left;
 	margin-top: 2%;
 	margin-left:2%;
+	width: 20%;
 	color: #de1e4c;
+	float: left;
+}
+
+header #github {
+	width:80px;
+	height:80px;
+	margin-left:40%;
+	float: left;
+}
+
+header #github img {
+	width:100%;
+	height:100%;
 }
 
 body {
-	
+	min-width: 800px;
 }
 
 article {
