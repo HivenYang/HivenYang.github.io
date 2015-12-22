@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>hivenyang的博客</title>
-    <link>http://localhost:1313/</link>
+    <link>http://hivenyang.github.io/</link>
     <description>Recent content on hivenyang的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 08 Dec 2015 19:48:22 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://hivenyang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>使用WireShark抓包</title>
-      <link>http://localhost:1313/article/%E4%BD%BF%E7%94%A8WireShark%E6%8A%93%E5%8C%85/</link>
+      <link>http://hivenyang.github.io/article/%E4%BD%BF%E7%94%A8WireShark%E6%8A%93%E5%8C%85/</link>
       <pubDate>Tue, 08 Dec 2015 19:48:22 +0800</pubDate>
       
-      <guid>http://localhost:1313/article/%E4%BD%BF%E7%94%A8WireShark%E6%8A%93%E5%8C%85/</guid>
+      <guid>http://hivenyang.github.io/article/%E4%BD%BF%E7%94%A8WireShark%E6%8A%93%E5%8C%85/</guid>
       <description>&lt;p&gt;#In vel ligula tortor. Aliquam erat volutpat.
 Pellentesque at felis eu quam tincidunt dignissim.
 Nulla facilisi.&lt;/p&gt;
@@ -27,10 +27,10 @@ gravida dui. Phasellus tristique libero at ex.&lt;/p&gt;
     
     <item>
       <title>细说字符集和编码方式</title>
-      <link>http://localhost:1313/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</link>
+      <link>http://hivenyang.github.io/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</link>
       <pubDate>Thu, 03 Dec 2015 19:48:22 +0800</pubDate>
       
-      <guid>http://localhost:1313/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</guid>
+      <guid>http://hivenyang.github.io/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</guid>
       <description>
 
 &lt;h1 id=&#34;细说字符集和编码方式:db67afc29a4cc01cb2cd895252195abb&#34;&gt;细说字符集和编码方式&lt;/h1&gt;
