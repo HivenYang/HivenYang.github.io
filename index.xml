@@ -6,8 +6,155 @@
     <description>Recent content on hivenyang的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 06 Jan 2016 18:11:22 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 14 Jan 2016 19:48:22 +0800</lastBuildDate>
     <atom:link href="http://hivenyang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>MySQL主从备份读写分离设置</title>
+      <link>http://hivenyang.github.io/article/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%87%E4%BB%BD/</link>
+      <pubDate>Thu, 14 Jan 2016 19:48:22 +0800</pubDate>
+      
+      <guid>http://hivenyang.github.io/article/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%87%E4%BB%BD/</guid>
+      <description>
+
+&lt;h2 id=&#34;mysql主从备份读写分离设置:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;MySQL主从备份读写分离设置&lt;/h2&gt;
+
+&lt;h3 id=&#34;1-主从备份的优势-mysql文档是这么写的:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;1.主从备份的优势，MySQL文档是这么写的&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;Advantages of replication in MySQL include:
+Scale-out solutions - spreading the load among multiple slaves to improve performance. 
+In this environment, all writes and updates must take place on the master server. Reads, however, 
+may take place on one or more slaves. This model can improve the performance of writes 
+(since the master is dedicated to updates), while dramatically increasing read speed across an increasing number of slaves.
+
+Data security - because data is replicated to the slave, and the slave can pause the replication process, 
+it is possible to run backup services on the slave without corrupting the corresponding master data.
+
+Analytics - live data can be created on the master, while the analysis of the information can take place 
+on the slave without affecting the performance of the master.
+
+Long-distance data distribution - if a branch office would like to work with a copy of your main data, 
+you can use replication to create a local copy of the data for their use without requiring permanent access to the master.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;翻译成以下4点:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;翻译成以下4点：&lt;/h5&gt;
+
+&lt;pre&gt;&lt;code&gt;1.读写分离，通过扩展slave来提高性能，master来负责插入和更新，查询可以扩展到多台slaves
+2.数据更有保证，不再需要获取master上一致的数据而可以基于slave上的数据直接启动应急的服务器
+3.数据分析，基于salve的数据进行分析，不用影响线上性能
+4.分布式远程数据，如果有人要基于你们的数据进行工作，可以让他们接触slave数据而不用操作master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-言归正传-怎么配置和使用呢:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;2.言归正传，怎么配置和使用呢&lt;/h3&gt;
+
+&lt;h6 id=&#34;1-基于二进制日志文件:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;1.基于二进制日志文件&lt;/h6&gt;
+
+&lt;h6 id=&#34;2-mysql5-6-5之后可以基于gtid-全局事务标示符-配置:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;2.MySQL5.6.5之后可以基于GTID（全局事务标示符）配置&lt;/h6&gt;
+
+&lt;h5 id=&#34;基于binary-logging-mechanism-就是master的数据有变化时-会写入binary-log-slaves会根据配置去读取binary-log-然后在本地数据库执行log里面的操作:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;基于binary logging mechanism，就是master的数据有变化时，会写入binary log，slaves会根据配置去读取binary log，然后在本地数据库执行log里面的操作&lt;/h5&gt;
+
+&lt;pre&gt;&lt;code&gt;Important
+You cannot configure the master to log only certain events.
+不能配置master只记录某种事件
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;配置步骤:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;配置步骤&lt;/h5&gt;
+
+&lt;h6 id=&#34;1-配置master-在主服务器的mysql配置文件中添加以下内容:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;1.配置master，在主服务器的mysql配置文件中添加以下内容&lt;/h6&gt;
+
+&lt;pre&gt;&lt;code&gt;[mysqld]
+server-id=1
+log-bin=mysqlmaster-bin.log
+#For the greatest possible durability and consistency in a replication setup using InnoDB with transactions, you should use innodb_flush_log_at_trx_commit=1 and sync_binlog=1 in the master my.cnf file.
+innodb_flush_log_at_trx_commit=1
+sync_binlog=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h6 id=&#34;重启master上mysql:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;重启master上mysql&lt;/h6&gt;
+
+&lt;h6 id=&#34;2-配置slave:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;2.配置slave&lt;/h6&gt;
+
+&lt;pre&gt;&lt;code&gt;[mysqld]
+server-id=2
+#下面两个参数不是必须的，只有当你需要使用slave的log文件或者需要作为其他slave的master
+log-bin=mysqlslave-bin
+innodb_flush_log_at_trx_commit=1
+sync_binlog=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h6 id=&#34;重启slave:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;重启slave&lt;/h6&gt;
+
+&lt;h6 id=&#34;3-在master上进行一系列操作:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;3.在master上进行一系列操作&lt;/h6&gt;
+
+&lt;p&gt;1.创建用于主从复制的账户&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GRANT REPLICATION SLAVE ON *.* TO&#39;repl&#39;@&#39;192.168.100.3&#39; IDENTIFIED BY &#39;repl&#39;;
+或者
+CREATE USER &#39;repl&#39;@&#39;%.mydomain.com&#39; IDENTIFIED BY &#39;slavepass&#39;;
+GRANT REPLICATION SLAVE ON *.* TO &#39;repl&#39;@&#39;%.mydomain.com&#39;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.登录master上mysql，flush写数据并锁定表，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt;FLUSH TABLES WITH READ LOCK;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.然后执行以下语句，获取当前的二进制log文件名和位置&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt;SHOW MASTER STATUS;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://hivenyang.github.io/images/show_master_status.png&#34; alt=&#34;&#34; /&gt;
+
+在这个例子中二进制文件是mysqlmaster-bin.000001，位置是120，记录这两个值，稍后会用到，如果这个命令没有查询出数据，那么稍后用到的值就是空字符串和4&lt;/p&gt;
+
+&lt;p&gt;4.在master上使用mysqldump命令创建一个数据快照&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysqldump -uroot -p --all-databases --master-data &amp;gt; dbdump.db
+当然也可以使用以下命令远程操作
+mysqldump -uroot -p -h127.0.0.1 -P3306 --all-databases --master-data &amp;gt; dbdump.db
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;5.解锁刚才锁定的数据库&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt;UNLOCK TABLES;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h6 id=&#34;4-操作从库:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;4.操作从库&lt;/h6&gt;
+
+&lt;p&gt;(1) 导入刚才创建的主数据库的快照&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;上传dbdump.db，执行命令
+mysql -uroot -p &amp;lt; dbdump.db
+也可以远程执行
+mysql -uroot -p -hhost -P3306 &amp;lt; dbdump.db
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;(2) 在数据库中配置要复制的主库的信息&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; CHANGE MASTER TO  MASTER_HOST=&#39;master_host_name&#39;, 
+MASTER_USER=&#39;replication_user_name&#39;, 
+MASTER_PASSWORD=&#39;replication_password&#39;, 
+MASTER_LOG_FILE=&#39;recorded_log_file_name&#39;, 
+MASTER_LOG_POS=recorded_log_position;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;(3) 启动slave的复制线程，并查询slave的状态&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; START slave;
+mysql&amp;gt; SHOW slave STATUS;
+#如果以下两个状态都为yes，说明主从配置成功
+Slave_IO_Running:    Slave_SQL_Running:
+Yes                  Yes
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h6 id=&#34;然后就可以在master上修改数据进行测试了:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;然后就可以在master上修改数据进行测试了。&lt;/h6&gt;
+
+&lt;h4 id=&#34;如果最后不成功-那么查看mysql的日志文件-看错误在哪里:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;如果最后不成功，那么查看mysql的日志文件，看错误在哪里。&lt;/h4&gt;
+
+&lt;h4 id=&#34;ps-windows下mysql的配置文件在此目录下c-programdata-mysql-mysql-server-5-6:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;PS：windows下mysql的配置文件在此目录下C:\ProgramData\MySQL\MySQL Server 5.6&lt;/h4&gt;
+</description>
+    </item>
     
     <item>
       <title>使用hugo搭建自己的静态博客</title>
