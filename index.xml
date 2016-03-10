@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>hivenyang的博客</title>
-    <link>http://hivenyang.github.io/</link>
-    <description>Recent content on hivenyang的博客</description>
+    <title>yanghaikun</title>
+    <link>http://yanghaikun.github.io/</link>
+    <description>Recent content on yanghaikun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 14 Jan 2016 19:48:22 +0800</lastBuildDate>
-    <atom:link href="http://hivenyang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://yanghaikun.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>MySQL主从备份读写分离设置</title>
-      <link>http://hivenyang.github.io/article/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%87%E4%BB%BD/</link>
+      <link>http://yanghaikun.github.io/article/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%87%E4%BB%BD/</link>
       <pubDate>Thu, 14 Jan 2016 19:48:22 +0800</pubDate>
       
-      <guid>http://hivenyang.github.io/article/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%87%E4%BB%BD/</guid>
+      <guid>http://yanghaikun.github.io/article/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%87%E4%BB%BD/</guid>
       <description>
 
 &lt;h2 id=&#34;mysql主从备份读写分离设置:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;MySQL主从备份读写分离设置&lt;/h2&gt;
@@ -104,7 +104,7 @@ GRANT REPLICATION SLAVE ON *.* TO &#39;repl&#39;@&#39;%.mydomain.com&#39;;
 &lt;pre&gt;&lt;code&gt;mysql&amp;gt;SHOW MASTER STATUS;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://hivenyang.github.io/images/show_master_status.png&#34; alt=&#34;&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;http://yanghaikun.github.io/images/show_master_status.png&#34; alt=&#34;&#34; /&gt;
 
 在这个例子中二进制文件是mysqlmaster-bin.000001，位置是120，记录这两个值，稍后会用到，如果这个命令没有查询出数据，那么稍后用到的值就是空字符串和4&lt;/p&gt;
 
@@ -158,10 +158,10 @@ Yes                  Yes
     
     <item>
       <title>使用hugo搭建自己的静态博客</title>
-      <link>http://hivenyang.github.io/article/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</link>
+      <link>http://yanghaikun.github.io/article/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</link>
       <pubDate>Wed, 06 Jan 2016 18:11:22 +0800</pubDate>
       
-      <guid>http://hivenyang.github.io/article/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</guid>
+      <guid>http://yanghaikun.github.io/article/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</guid>
       <description>
 
 &lt;h1 id=&#34;坑已经挖好-等回头填上吧:b2eb82714820ca4d0dc17ca90d5271ba&#34;&gt;坑已经挖好，等回头填上吧&lt;/h1&gt;
@@ -170,19 +170,19 @@ Yes                  Yes
     
     <item>
       <title>使用WireShark抓包</title>
-      <link>http://hivenyang.github.io/article/%E4%BD%BF%E7%94%A8WireShark%E6%8A%93%E5%8C%85/</link>
+      <link>http://yanghaikun.github.io/article/%E4%BD%BF%E7%94%A8WireShark%E6%8A%93%E5%8C%85/</link>
       <pubDate>Tue, 08 Dec 2015 19:48:22 +0800</pubDate>
       
-      <guid>http://hivenyang.github.io/article/%E4%BD%BF%E7%94%A8WireShark%E6%8A%93%E5%8C%85/</guid>
+      <guid>http://yanghaikun.github.io/article/%E4%BD%BF%E7%94%A8WireShark%E6%8A%93%E5%8C%85/</guid>
       <description></description>
     </item>
     
     <item>
       <title>细说字符集和编码方式</title>
-      <link>http://hivenyang.github.io/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</link>
+      <link>http://yanghaikun.github.io/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</link>
       <pubDate>Thu, 03 Dec 2015 19:48:22 +0800</pubDate>
       
-      <guid>http://hivenyang.github.io/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</guid>
+      <guid>http://yanghaikun.github.io/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</guid>
       <description>
 
 &lt;h1 id=&#34;细说字符集和编码方式:db67afc29a4cc01cb2cd895252195abb&#34;&gt;细说字符集和编码方式&lt;/h1&gt;
