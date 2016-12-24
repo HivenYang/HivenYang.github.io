@@ -23,7 +23,72 @@
 <div class="essay">
 
 
-<h1 id="坑已经挖好-等回头填上吧:b2eb82714820ca4d0dc17ca90d5271ba">坑已经挖好，等回头填上吧</h1>
+<h2 id="使用hugo搭建自己的静态博客">使用Hugo搭建自己的静态博客</h2>
+
+<p>程序员界都流行写技术博客，最近流行在github.io上挂自己的静态博客，使用了Go语言之后，意外发现一个用Go语言写的生成静态博客软件hugo，使用方便，文档俱全，还蛮容易就创建了一套自己的简单主题，所以稍微把使用hugo搭建个人博客的过程记录下来。额，其实有点感觉是在简单翻译他的Quickstart</p>
+
+<h4 id="1-下载和安装hugo">1.下载和安装Hugo</h4>
+
+<p>Hugo主页：<a href="http://gohugo.io/">http://gohugo.io/</a><br />
+最新版本下载页：<a href="https://github.com/spf13/hugo/releases">https://github.com/spf13/hugo/releases</a><br />
+各系统压缩包一应俱全，Go语言编译的便利性<br />
+下载解压之后，将Hugo可执行文件所在路径加入环境变量，这样在任意目录都可以直接运行hugo命令</p>
+
+<h4 id="2-常用命令">2.常用命令</h4>
+
+<pre><code>hugo help 查看所有命令
+hugo [commond] --help 查看各命令的详细参数
+
+hugo new [path] [flags] 创建新的文章
+hugo new site [name]    创建新的网站
+hugo new theme [name]   创建新的主题
+
+hugo server [flags]     运行本地服务器，然后可通过浏览器直接访问网站，默认端口1313
+hugo -D 重新生成所有文章
+
+平时写完一篇，最长用的命令就是 hugo server -D 打开浏览器看看效果
+</code></pre>
+
+<h4 id="3-搭建博客">3.搭建博客</h4>
+
+<pre><code>1.创建网站目录 hugo new site [name]
+在任一目录下打开命令行，使用命令hugo new site helloworld 即可创建自己的网站目录，创建之后可以看到，已经自动帮我们创建了各种目录
+▸ archetypes/   文章模板
+▸ content/      文章目录
+▸ data/         存放额外数据
+▸ i18n/         go-i18n国际化支持
+▸ layouts/      网页html模板
+▸ static/       静态文件，js/css/图片资源
+▸ themes/       主题，也就是一个包含可用archetypes/layouts/static的资源合集
+  config.toml   一些参数配置
+  
+
+2.使用过一个主题
+mkdir themes 在helloworld目录创建文件夹themes
+cd themes打开themes目录
+git clone https://github.com/spf13/herring-cove.git 在themes目录下载一个主题
+cd herring-cove
+rm -r .git 删除.git目录，避免与自己的版本冲突
+
+hugo server -t &quot;herring-cove&quot; 运行网站
+在浏览器里输入http://127.0.0.1:1313/
+即可看到一个博客雏形
+
+3.自己的第一篇文章
+回到helloworld目录打开命令行
+hugo new 世界你好.md    在content目录创建一篇新文章
+再次使用hugo server -t &quot;herring-cove&quot;运行网站
+你会发现你的第一篇博文已经展现出来了
+
+4.配置主题
+一切都只是个开始，这样的一个网站真的很挫，毫无美感可言，每个主题都有一堆参数可以配置，我们可以查看对应主题的github页，查看详细的介绍。
+
+5，创建自己的主题
+经过上面我们发现，其实主题就是把自己的网页模板，布局文件，css，js文件这些静态文件提出来，放到一个单独的文件夹中，即可当一个主题使用
+
+算了，详情都在gohugo.io上，自己看吧
+
+</code></pre>
 
 </div>
 <footer>

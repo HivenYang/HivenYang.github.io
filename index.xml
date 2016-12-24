@@ -2,24 +2,166 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>yanghaikun</title>
-    <link>http://yanghaikun.github.io/</link>
+    <link>http://yanghaikun.github.io/index.xml</link>
     <description>Recent content on yanghaikun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Jan 2016 19:48:22 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 03 Dec 2016 19:48:22 +0800</lastBuildDate>
     <atom:link href="http://yanghaikun.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>细说字符集和编码方式</title>
+      <link>http://yanghaikun.github.io/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</link>
+      <pubDate>Sat, 03 Dec 2016 19:48:22 +0800</pubDate>
+      
+      <guid>http://yanghaikun.github.io/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</guid>
+      <description>
+
+&lt;h1 id=&#34;细说字符集和编码方式&#34;&gt;细说字符集和编码方式&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;字符集&#34;&gt;字符集&lt;/h2&gt;
+
+&lt;h3 id=&#34;1-ascii&#34;&gt;1.ASCII&lt;/h3&gt;
+
+&lt;p&gt;要说字符集，就必须先从ASCII说起，全名叫做American Standard Code for Information Interchange，美国信息互换标准码。
+刚出现现在意义的电脑的时候，谁都可以搞一套自己的编码方式，为了统一编码，使大家能够互相通信不造成乱码，那所有电脑都应该使用相同的编码规则。于是美国的有关标准组织就站了出来，制定了ASCII。包含了128个字符，可用7位二进制来表示。但是为什么结果却是使用8位来表示ASCII，到底是因为一个字节是8位，还是需要在7位的基础上加上1个bit的校验位，暂时没有查到资料。&lt;/p&gt;
+
+&lt;p&gt;还有现在的计算机为什么一个字节是8位，到底是在ASCII之前就是标准，还是因为ASCII之后IBMPC因为销量确立的事实标准，也没有查找到资料。&lt;/p&gt;
+
+&lt;p&gt;ASCII之后一直相安无事多年，直到电脑传到了欧洲。说英语的国家没事，可不是每个国家都用英语了，于是开始在8位中空着的编号为128-255的位置做文章，这也就是扩展扩展ASCII&lt;/p&gt;
+
+&lt;h3 id=&#34;2-gb2312和gbk&#34;&gt;2.GB2312和GBK&lt;/h3&gt;
+
+&lt;p&gt;随着电脑的进一步传播，更多的领域和国家需要使用计算机啊，没有更多的空白位可以使用了啊。怎么办呢，各国人民的创造力是无穷的。&lt;/p&gt;
+
+&lt;p&gt;中国是怎么解决的呢，先干掉127之后扩展的奇葩字符，再规定127之前的字符与原先意义相同，两个大于127的字符连载一起就表示一个汉字（前面一个字节，高位从0xA1到0xF7，后一个字节，低位从0xA1到0xFE），这样就可以表示86x93=7998个汉字，不仅把简体汉字，还把数学符号、希腊字母、日文、还有坑爹的全角符号。哎哟，不错哦，这就是GB2312的由来。&lt;/p&gt;
+
+&lt;p&gt;没过多久，还是不够用啊，名字里的生僻字打不出来，索性规定只要第一个字节是大于127的就表示这是一个汉字的开始，第二位不管了，于是可以表示20000多个字符了，这就是GBK的由来&lt;/p&gt;
+
+&lt;p&gt;但是少数民族同胞的名字还是打不出来，这怎么能行，提阿尼饿了几千个少数民族字，GBK扩展成GB18030
+这也是流传很广的一个汉字等于两个英文字符的由来&lt;/p&gt;
+
+&lt;h3 id=&#34;3-unicode&#34;&gt;3.UNICODE&lt;/h3&gt;
+
+&lt;p&gt;但是问题又来了，各个国家的人民都没闲着，都搞出了自己的编码标准，相互之间没法支持和兼容，于是ISO组织看不下去了，着手制定UNICODE，大一统解决方案。从此世界人民都能幸福的用电脑了。&lt;/p&gt;
+
+&lt;h4 id=&#34;usc-2和usc-4&#34;&gt;USC-2和USC-4&lt;/h4&gt;
+
+&lt;p&gt;最初UNICODE使用两个字节来表示一个字符，总共可以表示2^16-1=65535个字符。听起来也不够多对不对，没关系，ISO已经备好了USC-4，也就是用4个字节表示一个字符的方案，除了最高位固定是0，总共可以表示2^31-1个字符，这回不怕了吧
+实际情况是，现在的UNICODE字符集使用0x0000到0x10FFFF来表示字符，一共可以表示17*65535=110w+个字符&lt;/p&gt;
+
+&lt;h5 id=&#34;总之-一句话说明字符集就是-它为每个字符定义了一个相应的数字表示&#34;&gt;总之，一句话说明字符集就是，它为每个字符定义了一个相应的数字表示&lt;/h5&gt;
+
+&lt;h2 id=&#34;编码方式&#34;&gt;编码方式&lt;/h2&gt;
+
+&lt;p&gt;每种字符集都伴随着自己的编码方式，比如ASCII编码，GBK编码，在字符集混乱的年代，编码方式和字符集是同一个问题。&lt;/p&gt;
+
+&lt;p&gt;字符集额问题统一了，新的问题又来了，随着网络的发展，UNICODE怎么在网络上传输出现了各种不同的方式，于是各种UTF（UCS Transfer Format）标准相继出现，UTF8就是每次8位编码，UTF16就是每次16位编码，UTF32类推。&lt;/p&gt;
+
+&lt;p&gt;字符集相当于给我们提供了一个表，一个数字或者二进制串对应一个字符，字符编码就是怎么描述连续的二进制串。&lt;/p&gt;
+
+&lt;p&gt;如果直接用四个字节存储一个数字来表示一个字符码，也就是UTF32的方式，但是这样的问题是会有很大的浪费。英文的UNICODE范围是0x0000-0x007F,只需要一个字节就可以表示，大部分中文的范围是0x4E00-0x9FA5,绝大部分字符只需要使用2个字节就可以表示了。需要使用四个字节来表示的字符少之又少。&lt;/p&gt;
+
+&lt;p&gt;Linux操作系统上所使用的Unicode方案是UTF32。而Windows使用两个字节来表示Unicode字符，对于那些需要4个字节才能表示的字符，使用一种代理的手法来扩展（在低两个字节上做上一个标记，表示这是一个代理，需要连接上随后的两个字节，才能组成一个字符），这样的好处是节约了大量的存取空间，也提高了处理速度。这种表示方法也就是UTF16。&lt;/p&gt;
+
+&lt;h3 id=&#34;utf-8&#34;&gt;UTF-8&lt;/h3&gt;
+
+&lt;p&gt;UTF-8是一种变长字节编码方式。对于某一个字符的UTF-8编码，如果只有一个字节则其最高二进制位为0；如果是多字节，其第一个字节从最高位开始，连续的二进制位值为1的个数决定了其编码的位数，其余各字节均以10开头。UTF-8最多可用到6个字节。
+如表：
+1字节 0xxxxxxx
+2字节 110xxxxx 10xxxxxx
+3字节 1110xxxx 10xxxxxx 10xxxxxx
+4字节 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+5字节 111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+6字节 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx&lt;/p&gt;
+
+&lt;p&gt;汉字在UNICODE中的范围是0X4E00到0x9FA5，所以经过UTF8编码后的长度为3个字节&lt;/p&gt;
+
+&lt;h4 id=&#34;utf8和utf8bom&#34;&gt;UTF8和UTF8BOM&lt;/h4&gt;
+
+&lt;p&gt;UTF-8不需要BOM来表明字节顺序，但可以用BOM来表明编码方式。字符&amp;rdquo;ZERO WIDTH NO-BREAK SPACE&amp;rdquo;的UTF-8编码是EF BB BF。
+软件通过BOM来识别这个文件是否是UTF-8编码。&lt;/p&gt;
+
+&lt;h3 id=&#34;utf16&#34;&gt;UTF16&lt;/h3&gt;
+
+&lt;p&gt;UTF16是固定使用两个字节来存储UNICODE码，完全对应于UCS-2，
+比起UTF8的好处在于大部分字符都是以两个字节的长度来存储，但是却无法兼容ASCII编码。
+UTF-16包括三种：UTF-16，UTF-16BE（Big Endian），UTF-16LE（Little Endian），原因在于两个字节编码，可以高位在前，也可以低位在前，UTF-16需要通过在文件开头以名为BOM（Byte Order Mark）的字符来表明文件是Big Endian（0xFFFE）还是Little Endian（0xFEFF）。&lt;/p&gt;
+
+&lt;p&gt;UTF-16还能表示一部分的UCS-4代码点——U+10000～U+10FFFF。表示算法比较复杂，简单说明如下：
+从代码点U中减去0x10000，得到U&amp;rsquo;。这样U+10000～U+10FFFF就变成了 0x00000～0xFFFFF。
+用20位二进制数表示U&amp;rsquo;。 U&amp;rsquo;=yyyyyyyyyyxxxxxxxxxx
+将前10位和后10位用W1和W2表示，W1=110110yyyyyyyyyy，W2=110111xxxxxxxxxx，则 W1 = D800～DBFF，W2 = DC00～DFFF。
+例如，U+12345表示为 D8 08 DF 45（UTF-16BE），或者08 D8 45 DF（UTF-16LE）。
+但是由于这种算法的存在，造成UCS-2中的 U+D800～U+DFFF 变成了无定义的字符。&lt;/p&gt;
+
+&lt;h3 id=&#34;utf32&#34;&gt;UTF32&lt;/h3&gt;
+
+&lt;p&gt;UTF32就很好理解了，与UCS-4对应，每个字符用四个字节编码。缺点是浪费空间&lt;/p&gt;
+
+&lt;h3 id=&#34;有关字符集和字符编码-我们最头疼的问题就是乱码了-原因是编码和解码时用了不同或者不兼容的字符集&#34;&gt;有关字符集和字符编码，我们最头疼的问题就是乱码了，原因是编码和解码时用了不同或者不兼容的字符集。&lt;/h3&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>使用免费的亚马逊AWS搭建自己的翻墙利器ShadowSocks</title>
+      <link>http://yanghaikun.github.io/article/%E4%BD%BF%E7%94%A8%E5%85%8D%E8%B4%B9%E7%9A%84%E4%BA%9A%E9%A9%AC%E9%80%8AAWS%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BF%BB%E5%A2%99%E5%88%A9%E5%99%A8ShadowSocks/</link>
+      <pubDate>Fri, 01 Apr 2016 18:11:22 +0800</pubDate>
+      
+      <guid>http://yanghaikun.github.io/article/%E4%BD%BF%E7%94%A8%E5%85%8D%E8%B4%B9%E7%9A%84%E4%BA%9A%E9%A9%AC%E9%80%8AAWS%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BF%BB%E5%A2%99%E5%88%A9%E5%99%A8ShadowSocks/</guid>
+      <description>&lt;p&gt;把大象装进冰箱分几步？&lt;/p&gt;
+
+&lt;p&gt;搭建自己的翻墙利器分几步？&lt;/p&gt;
+
+&lt;p&gt;1.申请免费的亚马逊AWS服务器
+AWS有活动，注册账号可以免费使用12个月，虽然是单核512内存，每个月限制100G流量，但是平时用妥妥的
+&lt;a href=&#34;https://aws.amazon.com/cn/&#34;&gt;https://aws.amazon.com/cn/&lt;/a&gt;
+我相信我能搞定注册，你也可以，之后选服务器，还是选美国吧，我听说选东京节点快，选了个东京，结果打开google，youtube全给我默认是日本地区，看着满屏的日文，太热
+选完机器，选完操作系统，就可以按给的地址和密钥ssh到服务器了&lt;/p&gt;
+
+&lt;p&gt;2.在服务器上安装Shadowsocks服务端程序
+早有老司机准备好了
+&lt;a href=&#34;http://www.jianshu.com/p/28fd29e350b6&#34;&gt;http://www.jianshu.com/p/28fd29e350b6&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;3.配置使用Shadowsocks客户端
+github上有各种平台的客户端
+&lt;a href=&#34;https://github.com/shadowsocks&#34;&gt;https://github.com/shadowsocks&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;4.配合SwitchyOmega自由翻墙
+毕竟有时候你需要更灵活的方式来控制翻墙
+这个时候你已经可以翻墙了，在chrome应用商店里安装，然后参考这个教程配置
+&lt;a href=&#34;http://www.ihacksoft.com/chrome-switchyomega.html&#34;&gt;http://www.ihacksoft.com/chrome-switchyomega.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;ps:在线规则列表地址
+&lt;a href=&#34;https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt&#34;&gt;https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Go语言</title>
+      <link>http://yanghaikun.github.io/article/Go%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Tue, 01 Mar 2016 18:11:22 +0800</pubDate>
+      
+      <guid>http://yanghaikun.github.io/article/Go%E8%AF%AD%E8%A8%80/</guid>
+      <description>
+
+&lt;h1 id=&#34;坑已经挖好-等回头填上吧&#34;&gt;坑已经挖好，等回头填上吧&lt;/h1&gt;
+</description>
+    </item>
     
     <item>
       <title>MySQL主从备份读写分离设置</title>
       <link>http://yanghaikun.github.io/article/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%87%E4%BB%BD/</link>
-      <pubDate>Thu, 14 Jan 2016 19:48:22 +0800</pubDate>
+      <pubDate>Sun, 14 Feb 2016 19:48:22 +0800</pubDate>
       
       <guid>http://yanghaikun.github.io/article/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%87%E4%BB%BD/</guid>
       <description>
 
-&lt;h2 id=&#34;mysql主从备份读写分离设置:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;MySQL主从备份读写分离设置&lt;/h2&gt;
+&lt;h2 id=&#34;mysql主从备份读写分离设置&#34;&gt;MySQL主从备份读写分离设置&lt;/h2&gt;
 
-&lt;h3 id=&#34;1-主从备份的优势-mysql文档是这么写的:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;1.主从备份的优势，MySQL文档是这么写的&lt;/h3&gt;
+&lt;h3 id=&#34;1-主从备份的优势-mysql文档是这么写的&#34;&gt;1.主从备份的优势，MySQL文档是这么写的&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt;Advantages of replication in MySQL include:
 Scale-out solutions - spreading the load among multiple slaves to improve performance. 
@@ -37,7 +179,7 @@ Long-distance data distribution - if a branch office would like to work with a c
 you can use replication to create a local copy of the data for their use without requiring permanent access to the master.
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h5 id=&#34;翻译成以下4点:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;翻译成以下4点：&lt;/h5&gt;
+&lt;h5 id=&#34;翻译成以下4点&#34;&gt;翻译成以下4点：&lt;/h5&gt;
 
 &lt;pre&gt;&lt;code&gt;1.读写分离，通过扩展slave来提高性能，master来负责插入和更新，查询可以扩展到多台slaves
 2.数据更有保证，不再需要获取master上一致的数据而可以基于slave上的数据直接启动应急的服务器
@@ -45,22 +187,22 @@ you can use replication to create a local copy of the data for their use without
 4.分布式远程数据，如果有人要基于你们的数据进行工作，可以让他们接触slave数据而不用操作master
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;2-言归正传-怎么配置和使用呢:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;2.言归正传，怎么配置和使用呢&lt;/h3&gt;
+&lt;h3 id=&#34;2-言归正传-怎么配置和使用呢&#34;&gt;2.言归正传，怎么配置和使用呢&lt;/h3&gt;
 
-&lt;h6 id=&#34;1-基于二进制日志文件:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;1.基于二进制日志文件&lt;/h6&gt;
+&lt;h6 id=&#34;1-基于二进制日志文件&#34;&gt;1.基于二进制日志文件&lt;/h6&gt;
 
-&lt;h6 id=&#34;2-mysql5-6-5之后可以基于gtid-全局事务标示符-配置:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;2.MySQL5.6.5之后可以基于GTID（全局事务标示符）配置&lt;/h6&gt;
+&lt;h6 id=&#34;2-mysql5-6-5之后可以基于gtid-全局事务标示符-配置&#34;&gt;2.MySQL5.6.5之后可以基于GTID（全局事务标示符）配置&lt;/h6&gt;
 
-&lt;h5 id=&#34;基于binary-logging-mechanism-就是master的数据有变化时-会写入binary-log-slaves会根据配置去读取binary-log-然后在本地数据库执行log里面的操作:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;基于binary logging mechanism，就是master的数据有变化时，会写入binary log，slaves会根据配置去读取binary log，然后在本地数据库执行log里面的操作&lt;/h5&gt;
+&lt;h5 id=&#34;基于binary-logging-mechanism-就是master的数据有变化时-会写入binary-log-slaves会根据配置去读取binary-log-然后在本地数据库执行log里面的操作&#34;&gt;基于binary logging mechanism，就是master的数据有变化时，会写入binary log，slaves会根据配置去读取binary log，然后在本地数据库执行log里面的操作&lt;/h5&gt;
 
 &lt;pre&gt;&lt;code&gt;Important
 You cannot configure the master to log only certain events.
 不能配置master只记录某种事件
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h5 id=&#34;配置步骤:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;配置步骤&lt;/h5&gt;
+&lt;h5 id=&#34;配置步骤&#34;&gt;配置步骤&lt;/h5&gt;
 
-&lt;h6 id=&#34;1-配置master-在主服务器的mysql配置文件中添加以下内容:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;1.配置master，在主服务器的mysql配置文件中添加以下内容&lt;/h6&gt;
+&lt;h6 id=&#34;1-配置master-在主服务器的mysql配置文件中添加以下内容&#34;&gt;1.配置master，在主服务器的mysql配置文件中添加以下内容&lt;/h6&gt;
 
 &lt;pre&gt;&lt;code&gt;[mysqld]
 server-id=1
@@ -70,9 +212,9 @@ innodb_flush_log_at_trx_commit=1
 sync_binlog=1
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h6 id=&#34;重启master上mysql:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;重启master上mysql&lt;/h6&gt;
+&lt;h6 id=&#34;重启master上mysql&#34;&gt;重启master上mysql&lt;/h6&gt;
 
-&lt;h6 id=&#34;2-配置slave:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;2.配置slave&lt;/h6&gt;
+&lt;h6 id=&#34;2-配置slave&#34;&gt;2.配置slave&lt;/h6&gt;
 
 &lt;pre&gt;&lt;code&gt;[mysqld]
 server-id=2
@@ -82,9 +224,9 @@ innodb_flush_log_at_trx_commit=1
 sync_binlog=1
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h6 id=&#34;重启slave:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;重启slave&lt;/h6&gt;
+&lt;h6 id=&#34;重启slave&#34;&gt;重启slave&lt;/h6&gt;
 
-&lt;h6 id=&#34;3-在master上进行一系列操作:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;3.在master上进行一系列操作&lt;/h6&gt;
+&lt;h6 id=&#34;3-在master上进行一系列操作&#34;&gt;3.在master上进行一系列操作&lt;/h6&gt;
 
 &lt;p&gt;1.创建用于主从复制的账户&lt;/p&gt;
 
@@ -105,7 +247,6 @@ GRANT REPLICATION SLAVE ON *.* TO &#39;repl&#39;@&#39;%.mydomain.com&#39;;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://yanghaikun.github.io/images/show_master_status.png&#34; alt=&#34;&#34; /&gt;
-
 在这个例子中二进制文件是mysqlmaster-bin.000001，位置是120，记录这两个值，稍后会用到，如果这个命令没有查询出数据，那么稍后用到的值就是空字符串和4&lt;/p&gt;
 
 &lt;p&gt;4.在master上使用mysqldump命令创建一个数据快照&lt;/p&gt;
@@ -120,7 +261,7 @@ mysqldump -uroot -p -h127.0.0.1 -P3306 --all-databases --master-data &amp;gt; db
 &lt;pre&gt;&lt;code&gt;mysql&amp;gt;UNLOCK TABLES;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h6 id=&#34;4-操作从库:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;4.操作从库&lt;/h6&gt;
+&lt;h6 id=&#34;4-操作从库&#34;&gt;4.操作从库&lt;/h6&gt;
 
 &lt;p&gt;(1) 导入刚才创建的主数据库的快照&lt;/p&gt;
 
@@ -148,11 +289,11 @@ Slave_IO_Running:    Slave_SQL_Running:
 Yes                  Yes
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h6 id=&#34;然后就可以在master上修改数据进行测试了:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;然后就可以在master上修改数据进行测试了。&lt;/h6&gt;
+&lt;h6 id=&#34;然后就可以在master上修改数据进行测试了&#34;&gt;然后就可以在master上修改数据进行测试了。&lt;/h6&gt;
 
-&lt;h4 id=&#34;如果最后不成功-那么查看mysql的日志文件-看错误在哪里:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;如果最后不成功，那么查看mysql的日志文件，看错误在哪里。&lt;/h4&gt;
+&lt;h4 id=&#34;如果最后不成功-那么查看mysql的日志文件-看错误在哪里&#34;&gt;如果最后不成功，那么查看mysql的日志文件，看错误在哪里。&lt;/h4&gt;
 
-&lt;h4 id=&#34;ps-windows下mysql的配置文件在此目录下c-programdata-mysql-mysql-server-5-6:c93a6bb6ba55bfc93227955a9e740dd4&#34;&gt;PS：windows下mysql的配置文件在此目录下C:\ProgramData\MySQL\MySQL Server 5.6&lt;/h4&gt;
+&lt;h4 id=&#34;ps-windows下mysql的配置文件在此目录下c-programdata-mysql-mysql-server-5-6&#34;&gt;PS：windows下mysql的配置文件在此目录下C:\ProgramData\MySQL\MySQL Server 5.6&lt;/h4&gt;
 </description>
     </item>
     
@@ -164,7 +305,72 @@ Yes                  Yes
       <guid>http://yanghaikun.github.io/article/%E4%BD%BF%E7%94%A8hugo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/</guid>
       <description>
 
-&lt;h1 id=&#34;坑已经挖好-等回头填上吧:b2eb82714820ca4d0dc17ca90d5271ba&#34;&gt;坑已经挖好，等回头填上吧&lt;/h1&gt;
+&lt;h2 id=&#34;使用hugo搭建自己的静态博客&#34;&gt;使用Hugo搭建自己的静态博客&lt;/h2&gt;
+
+&lt;p&gt;程序员界都流行写技术博客，最近流行在github.io上挂自己的静态博客，使用了Go语言之后，意外发现一个用Go语言写的生成静态博客软件hugo，使用方便，文档俱全，还蛮容易就创建了一套自己的简单主题，所以稍微把使用hugo搭建个人博客的过程记录下来。额，其实有点感觉是在简单翻译他的Quickstart&lt;/p&gt;
+
+&lt;h4 id=&#34;1-下载和安装hugo&#34;&gt;1.下载和安装Hugo&lt;/h4&gt;
+
+&lt;p&gt;Hugo主页：&lt;a href=&#34;http://gohugo.io/&#34;&gt;http://gohugo.io/&lt;/a&gt;&lt;br /&gt;
+最新版本下载页：&lt;a href=&#34;https://github.com/spf13/hugo/releases&#34;&gt;https://github.com/spf13/hugo/releases&lt;/a&gt;&lt;br /&gt;
+各系统压缩包一应俱全，Go语言编译的便利性&lt;br /&gt;
+下载解压之后，将Hugo可执行文件所在路径加入环境变量，这样在任意目录都可以直接运行hugo命令&lt;/p&gt;
+
+&lt;h4 id=&#34;2-常用命令&#34;&gt;2.常用命令&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;hugo help 查看所有命令
+hugo [commond] --help 查看各命令的详细参数
+
+hugo new [path] [flags] 创建新的文章
+hugo new site [name]    创建新的网站
+hugo new theme [name]   创建新的主题
+
+hugo server [flags]     运行本地服务器，然后可通过浏览器直接访问网站，默认端口1313
+hugo -D 重新生成所有文章
+
+平时写完一篇，最长用的命令就是 hugo server -D 打开浏览器看看效果
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;3-搭建博客&#34;&gt;3.搭建博客&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;1.创建网站目录 hugo new site [name]
+在任一目录下打开命令行，使用命令hugo new site helloworld 即可创建自己的网站目录，创建之后可以看到，已经自动帮我们创建了各种目录
+▸ archetypes/   文章模板
+▸ content/      文章目录
+▸ data/         存放额外数据
+▸ i18n/         go-i18n国际化支持
+▸ layouts/      网页html模板
+▸ static/       静态文件，js/css/图片资源
+▸ themes/       主题，也就是一个包含可用archetypes/layouts/static的资源合集
+  config.toml   一些参数配置
+  
+
+2.使用过一个主题
+mkdir themes 在helloworld目录创建文件夹themes
+cd themes打开themes目录
+git clone https://github.com/spf13/herring-cove.git 在themes目录下载一个主题
+cd herring-cove
+rm -r .git 删除.git目录，避免与自己的版本冲突
+
+hugo server -t &amp;quot;herring-cove&amp;quot; 运行网站
+在浏览器里输入http://127.0.0.1:1313/
+即可看到一个博客雏形
+
+3.自己的第一篇文章
+回到helloworld目录打开命令行
+hugo new 世界你好.md    在content目录创建一篇新文章
+再次使用hugo server -t &amp;quot;herring-cove&amp;quot;运行网站
+你会发现你的第一篇博文已经展现出来了
+
+4.配置主题
+一切都只是个开始，这样的一个网站真的很挫，毫无美感可言，每个主题都有一堆参数可以配置，我们可以查看对应主题的github页，查看详细的介绍。
+
+5，创建自己的主题
+经过上面我们发现，其实主题就是把自己的网页模板，布局文件，css，js文件这些静态文件提出来，放到一个单独的文件夹中，即可当一个主题使用
+
+算了，详情都在gohugo.io上，自己看吧
+
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -175,102 +381,6 @@ Yes                  Yes
       
       <guid>http://yanghaikun.github.io/article/%E4%BD%BF%E7%94%A8WireShark%E6%8A%93%E5%8C%85/</guid>
       <description></description>
-    </item>
-    
-    <item>
-      <title>细说字符集和编码方式</title>
-      <link>http://yanghaikun.github.io/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</link>
-      <pubDate>Thu, 03 Dec 2015 19:48:22 +0800</pubDate>
-      
-      <guid>http://yanghaikun.github.io/article/%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/</guid>
-      <description>
-
-&lt;h1 id=&#34;细说字符集和编码方式:db67afc29a4cc01cb2cd895252195abb&#34;&gt;细说字符集和编码方式&lt;/h1&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&#34;字符集:db67afc29a4cc01cb2cd895252195abb&#34;&gt;字符集&lt;/h2&gt;
-
-&lt;h3 id=&#34;1-ascii:db67afc29a4cc01cb2cd895252195abb&#34;&gt;1.ASCII&lt;/h3&gt;
-
-&lt;p&gt;要说字符集，就必须先从ASCII说起，全名叫做American Standard Code for Information Interchange，美国信息互换标准码。
-刚出现现在意义的电脑的时候，谁都可以搞一套自己的编码方式，为了统一编码，使大家能够互相通信不造成乱码，那所有电脑都应该使用相同的编码规则。于是美国的有关标准组织就站了出来，制定了ASCII。包含了128个字符，可用7位二进制来表示。但是为什么结果却是使用8位来表示ASCII，到底是因为一个字节是8位，还是需要在7位的基础上加上1个bit的校验位，暂时没有查到资料。&lt;/p&gt;
-
-&lt;p&gt;还有现在的计算机为什么一个字节是8位，到底是在ASCII之前就是标准，还是因为ASCII之后IBMPC因为销量确立的事实标准，也没有查找到资料。&lt;/p&gt;
-
-&lt;p&gt;ASCII之后一直相安无事多年，直到电脑传到了欧洲。说英语的国家没事，可不是每个国家都用英语了，于是开始在8位中空着的编号为128-255的位置做文章，这也就是扩展扩展ASCII&lt;/p&gt;
-
-&lt;h3 id=&#34;2-gb2312和gbk:db67afc29a4cc01cb2cd895252195abb&#34;&gt;2.GB2312和GBK&lt;/h3&gt;
-
-&lt;p&gt;随着电脑的进一步传播，更多的领域和国家需要使用计算机啊，没有更多的空白位可以使用了啊。怎么办呢，各国人民的创造力是无穷的。&lt;/p&gt;
-
-&lt;p&gt;中国是怎么解决的呢，先干掉127之后扩展的奇葩字符，再规定127之前的字符与原先意义相同，两个大于127的字符连载一起就表示一个汉字（前面一个字节，高位从0xA1到0xF7，后一个字节，低位从0xA1到0xFE），这样就可以表示86x93=7998个汉字，不仅把简体汉字，还把数学符号、希腊字母、日文、还有坑爹的全角符号。哎哟，不错哦，这就是GB2312的由来。&lt;/p&gt;
-
-&lt;p&gt;没过多久，还是不够用啊，名字里的生僻字打不出来，索性规定只要第一个字节是大于127的就表示这是一个汉字的开始，第二位不管了，于是可以表示20000多个字符了，这就是GBK的由来&lt;/p&gt;
-
-&lt;p&gt;但是少数民族同胞的名字还是打不出来，这怎么能行，提阿尼饿了几千个少数民族字，GBK扩展成GB18030
-这也是流传很广的一个汉字等于两个英文字符的由来&lt;/p&gt;
-
-&lt;h3 id=&#34;3-unicode:db67afc29a4cc01cb2cd895252195abb&#34;&gt;3.UNICODE&lt;/h3&gt;
-
-&lt;p&gt;但是问题又来了，各个国家的人民都没闲着，都搞出了自己的编码标准，相互之间没法支持和兼容，于是ISO组织看不下去了，着手制定UNICODE，大一统解决方案。从此世界人民都能幸福的用电脑了。&lt;/p&gt;
-
-&lt;h4 id=&#34;usc-2和usc-4:db67afc29a4cc01cb2cd895252195abb&#34;&gt;USC-2和USC-4&lt;/h4&gt;
-
-&lt;p&gt;最初UNICODE使用两个字节来表示一个字符，总共可以表示2^16-1=65535个字符。听起来也不够多对不对，没关系，ISO已经备好了USC-4，也就是用4个字节表示一个字符的方案，除了最高位固定是0，总共可以表示2^31-1个字符，这回不怕了吧
-实际情况是，现在的UNICODE字符集使用0x0000到0x10FFFF来表示字符，一共可以表示17*65535=110w+个字符&lt;/p&gt;
-
-&lt;h5 id=&#34;总之-一句话说明字符集就是-它为每个字符定义了一个相应的数字表示:db67afc29a4cc01cb2cd895252195abb&#34;&gt;总之，一句话说明字符集就是，它为每个字符定义了一个相应的数字表示&lt;/h5&gt;
-
-&lt;h2 id=&#34;编码方式:db67afc29a4cc01cb2cd895252195abb&#34;&gt;编码方式&lt;/h2&gt;
-
-&lt;p&gt;每种字符集都伴随着自己的编码方式，比如ASCII编码，GBK编码，在字符集混乱的年代，编码方式和字符集是同一个问题。&lt;/p&gt;
-
-&lt;p&gt;字符集额问题统一了，新的问题又来了，随着网络的发展，UNICODE怎么在网络上传输出现了各种不同的方式，于是各种UTF（UCS Transfer Format）标准相继出现，UTF8就是每次8位编码，UTF16就是每次16位编码，UTF32类推。&lt;/p&gt;
-
-&lt;p&gt;字符集相当于给我们提供了一个表，一个数字或者二进制串对应一个字符，字符编码就是怎么描述连续的二进制串。&lt;/p&gt;
-
-&lt;p&gt;如果直接用四个字节存储一个数字来表示一个字符码，也就是UTF32的方式，但是这样的问题是会有很大的浪费。英文的UNICODE范围是0x0000-0x007F,只需要一个字节就可以表示，大部分中文的范围是0x4E00-0x9FA5,绝大部分字符只需要使用2个字节就可以表示了。需要使用四个字节来表示的字符少之又少。&lt;/p&gt;
-
-&lt;p&gt;Linux操作系统上所使用的Unicode方案是UTF32。而Windows使用两个字节来表示Unicode字符，对于那些需要4个字节才能表示的字符，使用一种代理的手法来扩展（在低两个字节上做上一个标记，表示这是一个代理，需要连接上随后的两个字节，才能组成一个字符），这样的好处是节约了大量的存取空间，也提高了处理速度。这种表示方法也就是UTF16。&lt;/p&gt;
-
-&lt;h3 id=&#34;utf-8:db67afc29a4cc01cb2cd895252195abb&#34;&gt;UTF-8&lt;/h3&gt;
-
-&lt;p&gt;UTF-8是一种变长字节编码方式。对于某一个字符的UTF-8编码，如果只有一个字节则其最高二进制位为0；如果是多字节，其第一个字节从最高位开始，连续的二进制位值为1的个数决定了其编码的位数，其余各字节均以10开头。UTF-8最多可用到6个字节。
-如表：
-1字节 0xxxxxxx
-2字节 110xxxxx 10xxxxxx
-3字节 1110xxxx 10xxxxxx 10xxxxxx
-4字节 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
-5字节 111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
-6字节 1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx&lt;/p&gt;
-
-&lt;p&gt;汉字在UNICODE中的范围是0X4E00到0x9FA5，所以经过UTF8编码后的长度为3个字节&lt;/p&gt;
-
-&lt;h4 id=&#34;utf8和utf8bom:db67afc29a4cc01cb2cd895252195abb&#34;&gt;UTF8和UTF8BOM&lt;/h4&gt;
-
-&lt;p&gt;UTF-8不需要BOM来表明字节顺序，但可以用BOM来表明编码方式。字符&amp;rdquo;ZERO WIDTH NO-BREAK SPACE&amp;rdquo;的UTF-8编码是EF BB BF。
-软件通过BOM来识别这个文件是否是UTF-8编码。&lt;/p&gt;
-
-&lt;h3 id=&#34;utf16:db67afc29a4cc01cb2cd895252195abb&#34;&gt;UTF16&lt;/h3&gt;
-
-&lt;p&gt;UTF16是固定使用两个字节来存储UNICODE码，完全对应于UCS-2，
-比起UTF8的好处在于大部分字符都是以两个字节的长度来存储，但是却无法兼容ASCII编码。
-UTF-16包括三种：UTF-16，UTF-16BE（Big Endian），UTF-16LE（Little Endian），原因在于两个字节编码，可以高位在前，也可以低位在前，UTF-16需要通过在文件开头以名为BOM（Byte Order Mark）的字符来表明文件是Big Endian（0xFFFE）还是Little Endian（0xFEFF）。&lt;/p&gt;
-
-&lt;p&gt;UTF-16还能表示一部分的UCS-4代码点——U+10000～U+10FFFF。表示算法比较复杂，简单说明如下：
-从代码点U中减去0x10000，得到U&amp;rsquo;。这样U+10000～U+10FFFF就变成了 0x00000～0xFFFFF。
-用20位二进制数表示U&amp;rsquo;。 U&amp;rsquo;=yyyyyyyyyyxxxxxxxxxx
-将前10位和后10位用W1和W2表示，W1=110110yyyyyyyyyy，W2=110111xxxxxxxxxx，则 W1 = D800～DBFF，W2 = DC00～DFFF。
-例如，U+12345表示为 D8 08 DF 45（UTF-16BE），或者08 D8 45 DF（UTF-16LE）。
-但是由于这种算法的存在，造成UCS-2中的 U+D800～U+DFFF 变成了无定义的字符。&lt;/p&gt;
-
-&lt;h3 id=&#34;utf32:db67afc29a4cc01cb2cd895252195abb&#34;&gt;UTF32&lt;/h3&gt;
-
-&lt;p&gt;UTF32就很好理解了，与UCS-4对应，每个字符用四个字节编码。缺点是浪费空间&lt;/p&gt;
-
-&lt;h3 id=&#34;有关字符集和字符编码-我们最头疼的问题就是乱码了-原因是编码和解码时用了不同或者不兼容的字符集:db67afc29a4cc01cb2cd895252195abb&#34;&gt;有关字符集和字符编码，我们最头疼的问题就是乱码了，原因是编码和解码时用了不同或者不兼容的字符集。&lt;/h3&gt;
-</description>
     </item>
     
   </channel>
