@@ -6,8 +6,236 @@
     <description>Recent content on yanghaikun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 03 Dec 2016 19:48:22 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 11 Feb 2017 17:48:22 +0800</lastBuildDate>
     <atom:link href="http://yanghaikun.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Gradle使用1</title>
+      <link>http://yanghaikun.github.io/article/Gradle%E4%BD%BF%E7%94%A81/</link>
+      <pubDate>Sat, 11 Feb 2017 17:48:22 +0800</pubDate>
+      
+      <guid>http://yanghaikun.github.io/article/Gradle%E4%BD%BF%E7%94%A81/</guid>
+      <description>
+
+&lt;h2 id=&#34;gradle使用1&#34;&gt;Gradle使用1&lt;/h2&gt;
+
+&lt;p&gt;2年前就开始接触到gradle，作为AndroidStudio默认的项目构建工具，一直断断续续使用，有些概念一直没有弄清楚，今天就整理一下&lt;/p&gt;
+
+&lt;h3 id=&#34;1-projects和tasks&#34;&gt;1.projects和tasks&lt;/h3&gt;
+
+&lt;p&gt;projects和tasks是gradle中最重要的两个概念。
+任何一个gradle构建项目都是由一个或者多个projects组成。&lt;/p&gt;
+
+&lt;p&gt;每个project都是由多个task组成，每个 task都代表了构建执行过程中的一个原子性操作。如编译，打包，生成 javadoc，发布到某个仓库等操作。&lt;/p&gt;
+
+&lt;h4 id=&#34;gradle的任务task&#34;&gt;gradle的任务task&lt;/h4&gt;
+
+&lt;p&gt;创建一个文本build.gradle，添加如下内容：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;task hello {
+    doLast {
+        println &#39;Hello world!&#39;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然后在该目录下执行gradle hello
+就会看到对应的输出&lt;/p&gt;
+
+&lt;h4 id=&#34;任务依赖&#34;&gt;任务依赖&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;task hello {
+    doLast {
+        println &#39;Hello world!&#39;
+    }
+}
+
+task test(dependsOn: hello) &amp;lt;&amp;lt; {
+	println &amp;quot;This is test。&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;任务test依赖于任务hello&lt;/p&gt;
+
+&lt;p&gt;之所以强调task，平时直接使用的一个个&amp;rsquo;命令&amp;rsquo;其实都是task，java项目直接使用的gradle build其实是定义在插件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;apply plugin: &#39;java&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;中的一个task个，最开始还错误的以为这是一个gradle默认的命令&lt;/p&gt;
+
+&lt;h3 id=&#34;2-gradle依赖管理&#34;&gt;2.gradle依赖管理&lt;/h3&gt;
+
+&lt;p&gt;一个依赖声明的例子&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;apply plugin: &#39;java&#39;
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile group: &#39;org.hibernate&#39;, name: &#39;hibernate-core&#39;, version: &#39;3.6.7.Final&#39;
+    testCompile group: &#39;junit&#39;, name: &#39;junit&#39;, version: &#39;4.+&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以前也错误的以为 compile和testCompile是gradle定义的项目阶段，其实这些都是java插件里面定义的，一旦我们去掉&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;apply plugin: &#39;java&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编译就会错误&lt;/p&gt;
+
+&lt;h3 id=&#34;3-常用的几个插件&#34;&gt;3.常用的几个插件&lt;/h3&gt;
+
+&lt;h4 id=&#34;java插件&#34;&gt;java插件&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;apply plugin: &#39;java&#39; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;tasks:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;任务名称&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;compileJava&lt;/td&gt;
+&lt;td&gt;使用 javac 编译产品中的 Java 源文件。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;processResources&lt;/td&gt;
+&lt;td&gt;把生产资源文件拷贝到生产的类目录中。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;classes&lt;/td&gt;
+&lt;td&gt;组装生产的类目录。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;compileTestJava&lt;/td&gt;
+&lt;td&gt;使用 javac 编译 Java 的测试源文件。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;processTestResources&lt;/td&gt;
+&lt;td&gt;把测试的资源文件拷贝到测试的类目录中。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;testClasses&lt;/td&gt;
+&lt;td&gt;组装测试的类目录。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;jar&lt;/td&gt;
+&lt;td&gt;组装 JAR 文件&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;javadoc&lt;/td&gt;
+&lt;td&gt;使用 Javadoc 生成生产的 Java 源代码的API文档&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;test&lt;/td&gt;
+&lt;td&gt;使用 JUnit 或 TestNG运行单元测试。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;uploadArchives&lt;/td&gt;
+&lt;td&gt;使用archives配置上传包括 JAR 文件的构件。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;clean&lt;/td&gt;
+&lt;td&gt;删除项目的 build 目录。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;默认目录结构：&lt;/p&gt;
+
+&lt;p&gt;src/main/java   产品的Java源代码
+src/main/resources  产品的资源
+src/test/java   Java 测试源代码
+src/test/resources  测试资源
+sourceSet/java  给定的源集的Java源代码
+sourceSet/resources 给定的源集的资源&lt;/p&gt;
+
+&lt;p&gt;依赖管理：&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;名称&lt;/th&gt;
+&lt;th&gt;在哪些tasks中使用&lt;/th&gt;
+&lt;th&gt;意义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;compile&lt;/td&gt;
+&lt;td&gt;compileJava&lt;/td&gt;
+&lt;td&gt;编译时依赖&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;runtime&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;运行时依赖&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;testCompile&lt;/td&gt;
+&lt;td&gt;compileTestJava&lt;/td&gt;
+&lt;td&gt;用于编译测试的其他依赖&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;testRuntime&lt;/td&gt;
+&lt;td&gt;test&lt;/td&gt;
+&lt;td&gt;只用于运行测试的其他依赖&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;archives&lt;/td&gt;
+&lt;td&gt;uploadArchives&lt;/td&gt;
+&lt;td&gt;由本项目生产的构件（如jar包）。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;default&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;本项目上的默认项目依赖配置。包含本项目运行时所需要的构件和依赖。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;war插件&#34;&gt;war插件&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code&gt;apply plugin: &#39;war&#39; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;War 的插件继承自 Java 插件并添加了对组装 web 应用程序的 WAR 文件的支持。它禁用了 Java 插件生成默认的 JAR archive，并添加了一个默认的 WAR archive 任务。&lt;/p&gt;
+
+&lt;h4 id=&#34;idea插件&#34;&gt;idea插件&lt;/h4&gt;
+
+&lt;p&gt;idea插件用来生成符合IDEA项目，但是最新的IDEA2016的目录结构有所改变，而插件还没有更新，生成的工程会有问题，所以就可以忘记这个插件了，直接使用IDEA import project然后选择Gradle导入。&lt;/p&gt;
+
+&lt;h3 id=&#34;参考&#34;&gt;参考&lt;/h3&gt;
+
+&lt;p&gt;极客学院Gradle文档，写的很好很详细，值得刷一遍
+&lt;a href=&#34;http://wiki.jikexueyuan.com/project/gradle/&#34;&gt;http://wiki.jikexueyuan.com/project/gradle/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>细说字符集和编码方式</title>
